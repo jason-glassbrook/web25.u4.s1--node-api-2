@@ -9,9 +9,9 @@ module.exports = {
   setPost,
   pullPost,
   getAllComments,
-  getPostComments,
   getComment,
-  pushComment,
+  getAllCommentsOfPost,
+  pushCommentOfPost,
 }
 
 /***************************************
@@ -73,16 +73,6 @@ async function getAllComments () {
   return re
 }
 
-async function getPostComments (postId) {
-  const re = await (
-    db ('comments')
-      .join ('posts', 'posts.id', 'post_id')
-      .select ('comments.*', 'title as post')
-      .where ('post_id', postId)
-  )
-  return re
-}
-
 async function getComment (id) {
   const re = await (
     db ('comments')
@@ -93,7 +83,17 @@ async function getComment (id) {
   return re
 }
 
-async function pushComment (comment) {
+async function getAllCommentsOfPost (postId) {
+  const re = await (
+    db ('comments')
+      .join ('posts', 'posts.id', 'post_id')
+      .select ('comments.*', 'title as post')
+      .where ('post_id', postId)
+  )
+  return re
+}
+
+async function pushCommentOfPost (comment) {
   const re = await (
     db ('comments')
       .insert (comment)

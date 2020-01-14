@@ -33,9 +33,9 @@ The `db.js` publishes the following methods:
 -   `setPost()`: takes an `id` and `changes` to apply, attempts to set the changes on the matching post in the database, and returns the updated post(s).
 -   `pullPost()`: takes an `id`, attempts to remove the matching post from the database, and returns the removed posts(s).
 -   `getAllComments()`: returns an array of all the `comments` contained in the database.
--   `getPostComments()`: takes a `postId`, and returns all comments associated with that post `id`.
 -   `getComment()`: takes an `id`, and returns the comment associated with that `id`.
--   `pushComment()`: takes a `comment` object, adds it to the database, and returns an object with the `id` of the inserted comment. This method will throw an error if the `post_id` field in the `comment` object does not match a valid post id in the database.
+-   `getAllCommentsOfPost()`: takes a `postId`, and returns all comments associated with that post `id`.
+-   `pushCommentOfPost()`: takes a `comment` object, adds it to the database, and returns an object with the `id` of the inserted comment. This method will throw an error if the `post_id` field in the `comment` object does not match a valid post id in the database.
 
 Now that we have a way to add, update, remove and retrieve data from the provided database, it is time to work on the API.
 

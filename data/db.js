@@ -66,19 +66,19 @@ async function pullPost (id) {
   comments
 ***************************************/
 
+async function getAllComments () {
+  const re = await (
+    db ('comments')
+  )
+  return re
+}
+
 async function getPostComments (postId) {
   const re = await (
     db ('comments')
       .join ('posts', 'posts.id', 'post_id')
       .select ('comments.*', 'title as post')
       .where ('post_id', postId)
-  )
-  return re
-}
-
-async function getAllComments () {
-  const re = await (
-    db ('comments')
   )
   return re
 }

@@ -13,13 +13,14 @@ server.use (logger ('dev'))
 // const db = require ('./data/db.js')
 
 /// routers ///
-const useRoutes = require ('./routes/useRoutes')
+// const useRoutes = require ('./routes/useRoutes')
 
 /***************************************
   routing
 ***************************************/
 
-useRoutes (server, [ '', '/api' ], './routes')
+// useRoutes (server, [ '', '/api' ], './routes') ()
+server.use (require ('./routes'))
 
 /***************************************
   run server

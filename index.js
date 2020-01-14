@@ -1,27 +1,25 @@
 /// tools ///
-const _ = require ('lodash')
+const _ = require ('lodash/fp')
 const express = require ('express')
+const logger = require ('morgan')
 
 /// server ///
 const port = 5555
 const server = express ()
 server.use (express.json ())
+server.use (logger ('tiny'))
 
 // /// database ///
 // const db = require ('./data/db.js')
 
-/// routes ///
-const routes = {
-  '/' : require ('./routes'),
-  '/api' : require ('./routes/api')
-}
+/// routers ///
+const useRoutes = require ('./routes/useRoutes')
 
 /***************************************
   routing
 ***************************************/
 
-server.use ('/', routes['/'])
-server.use ('/api', routes['/api'])
+useRoutes (server, [ '', '/api' ], './routes')
 
 /***************************************
   run server

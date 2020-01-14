@@ -7,7 +7,7 @@ const logger = require ('morgan')
 const port = 5555
 const server = express ()
 server.use (express.json ())
-server.use (logger ('tiny'))
+server.use (logger ('dev'))
 
 // /// database ///
 // const db = require ('./data/db.js')

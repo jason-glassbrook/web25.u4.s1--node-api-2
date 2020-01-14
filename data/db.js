@@ -3,32 +3,29 @@ const knexConfig = require ('../knexfile.js')
 const db = knex (knexConfig.development)
 
 module.exports = {
-  find,
-  findById,
-  insert,
-  update,
-  remove,
-  findPostComments,
-  findCommentById,
-  insertComment,
+  getAllPosts,
+  getPost,
+  pushPost,
+  setPost,
+  pullPost,
+  getAllComments,
+  getPostComments,
+  getComment,
+  pushComment,
 }
 
-async function find () {
+/***************************************
+  posts
+***************************************/
+
+async function getAllPosts () {
   const re = await (
     db ('posts')
   )
   return re
 }
 
-async function findById (id) {
-  const re = await (
-    db ('posts')
-      .where ({ id: Number (id) })
-  )
-  return re
-}
-
-async function insert (post) {
+async function pushPost (post) {
   const re = await (
     db ('posts')
       .insert (post, 'id')
@@ -37,18 +34,26 @@ async function insert (post) {
   return re
 }
 
-async function update (id, post) {
+async function getPost (id) {
+  const re = await (
+    db ('posts')
+      .where ({ id: Number (id) })
+  )
+  return re
+}
+
+async function setPost (id, post) {
   const status = await (
     db ('posts')
       .where ('id', Number (id))
       .update (post)
   )
-  const re = findById (id)
+  const re = getPost (id)
   return re
 }
 
-async function remove (id) {
-  const re = findById (id)
+async function pullPost (id) {
+  const re = getPost (id)
   const status = await (
     db ('posts')
       .where ('id', Number (id))
@@ -57,7 +62,11 @@ async function remove (id) {
   return re
 }
 
-async function findPostComments (postId) {
+/***************************************
+  comments
+***************************************/
+
+async function getPostComments (postId) {
   const re = await (
     db ('comments')
       .join ('posts', 'posts.id', 'post_id')
@@ -67,7 +76,14 @@ async function findPostComments (postId) {
   return re
 }
 
-async function findCommentById (id) {
+async function getAllComments () {
+  const re = await (
+    db ('comments')
+  )
+  return re
+}
+
+async function getComment (id) {
   const re = await (
     db ('comments')
       .join ('posts', 'posts.id', 'post_id')
@@ -77,7 +93,7 @@ async function findCommentById (id) {
   return re
 }
 
-async function insertComment (comment) {
+async function pushComment (comment) {
   const re = await (
     db ('comments')
       .insert (comment)

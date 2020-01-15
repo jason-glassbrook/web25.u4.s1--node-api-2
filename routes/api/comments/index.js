@@ -12,9 +12,13 @@ const db = require ('../../../data/db')
 ***************************************/
 
 const router = express.Router ()
+
 const hello = {
   message : `hello! i'm ~/api/comments.`,
 }
+const error_400 = (request, thing) => ({
+  error : `bad request to ${request} ${thing}`,
+})
 const error_404 = (thing, id) => ({
   error : `could not find ${thing} with id ${id}`,
 })

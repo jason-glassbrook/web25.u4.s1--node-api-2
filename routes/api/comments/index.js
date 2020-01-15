@@ -14,6 +14,9 @@ const router = express.Router ()
 const hello = {
   message : `hello! i'm ~/api/comments.`,
 }
+const error_500 = {
+  error : 'something bad happened',
+}
 
 /***************************************
   handle requests

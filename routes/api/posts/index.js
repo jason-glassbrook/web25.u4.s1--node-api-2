@@ -39,6 +39,7 @@ const tryShapeOf = (shape) => (
 )
 const hasShapeOf = (shape) => (
   _.flow ([
+    _.keys,
     _.tap ((x) => console.log ('- :', x)),
     _.difference (shape),
     _.tap ((x) => console.log ('- :', x)),

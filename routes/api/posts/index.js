@@ -39,14 +39,16 @@ router.route ('/')
   .get ((ri, ro) => {
     db.getAllPosts ()
       .then ((posts) => {
+        console.log (posts)
         ro
           .status (200)
           .json (posts)
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
   .post ((ri, ro) => {
@@ -55,16 +57,19 @@ router.route ('/')
       _.pick (shapeOf.post),
       _.tap ((x) => console.log ('after:', x)),
     ]) (ri.body)
+
     db.pushPost (maybePost)
       .then ((post) => {
+        console.log (post)
         ro
           .status (201)
           .json (post)
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
 
@@ -75,8 +80,10 @@ router.route ('/')
 router.route ('/:post_id')
   .get ((ri, ro) => {
     const { post_id } = ri.params
+
     db.getPost (post_id)
       .then ((post) => {
+        console.log (post)
         if (_.has ('id') (post)) {
           ro
             .status (200)
@@ -89,19 +96,22 @@ router.route ('/:post_id')
         }
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
   .put ((ri, ro) => {
     const { post_id } = ri.params
+
     ro
       .status (501)
       .json (hello)
   })
   .delete ((ri, ro) => {
     const { post_id } = ri.params
+
     ro
       .status (501)
       .json (hello)
@@ -114,20 +124,24 @@ router.route ('/:post_id')
 router.route ('/:post_id/comments')
   .get ((ri, ro) => {
     const { post_id } = ri.params
+
     db.getAllCommentsOfPost (post_id)
       .then ((comments) => {
+        console.log (comments)
         ro
           .status (200)
           .json (comments)
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
   .post ((ri, ro) => {
     const { post_id } = ri.params
+
     const maybeComment = _.flow ([
       _.tap ((x) => console.log ('before:', x)),
       _.pick (shapeOf.comment),
@@ -136,14 +150,16 @@ router.route ('/:post_id/comments')
 
     db.pushCommentOfPost (maybeComment)
       .then ((comment) => {
+        console.log (comment)
         ro
           .status (201)
           .json (comment)
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
 

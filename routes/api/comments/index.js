@@ -34,11 +34,13 @@ router.route ('/')
   .get ((ri, ro) => {
     db.getAllComments ()
       .then ((comments) => {
+        console.log (comments)
         ro
           .status (200)
           .json (comments)
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
           .json (error_500 ())
@@ -52,13 +54,16 @@ router.route ('/')
 router.route ('/:comment_id')
   .get ((ri, ro) => {
     const { comment_id } = ri.params
+
     db.getComment (comment_id)
       .then ((comment) => {
+        console.log (comment)
         ro
           .status (200)
           .json (comment)
       })
       .catch ((error) => {
+        console.log (error)
         ro
           .status (500)
           .json (error_500 ())
@@ -66,12 +71,14 @@ router.route ('/:comment_id')
   })
   .put ((ri, ro) => {
     const { comment_id } = ri.params
+
     ro
       .status (501)
       .json (hello)
   })
   .delete ((ri, ro) => {
     const { comment_id } = ri.params
+
     ro
       .status (501)
       .json (hello)

@@ -82,9 +82,9 @@ router.route ('/:post_id')
     const { post_id } = ri.params
 
     db.getPost (post_id)
-      .then ((post) => {
+      .then (([ post ]) => {
         console.log (post)
-        if (_.has ('id') (post)) {
+        if (post) {
           ro
             .status (200)
             .json (post)

@@ -77,9 +77,16 @@ router.route ('/:post_id')
     const { post_id } = ri.params
     db.getPost (post_id)
       .then ((post) => {
-        ro
-          .status (200)
-          .json (post)
+        if (_.has ('id') (post)) {
+          ro
+            .status (200)
+            .json (post)
+        }
+        else {
+          ro
+            .status (404)
+            .json (error_404 ('post', post_id))
+        }
       })
       .catch ((error) => {
         ro

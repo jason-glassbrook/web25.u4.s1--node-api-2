@@ -47,7 +47,8 @@ router.route ('/')
 
 router.route ('/:comment_id')
   .get ((ri, ro) => {
-    db.getComment ()
+    const { comment_id } = ri.params
+    db.getComment (comment_id)
       .then ((comment) => {
         ro
           .status (200)
@@ -60,11 +61,13 @@ router.route ('/:comment_id')
       })
   })
   .put ((ri, ro) => {
+    const { comment_id } = ri.params
     ro
       .status (501)
       .json (hello)
   })
   .delete ((ri, ro) => {
+    const { comment_id } = ri.params
     ro
       .status (501)
       .json (hello)

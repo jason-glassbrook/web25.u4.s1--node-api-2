@@ -52,7 +52,8 @@ router.route ('/')
 
 router.route ('/:post_id')
   .get ((ri, ro) => {
-    db.getPost ()
+    const { post_id } = ri.params
+    db.getPost (post_id)
       .then ((post) => {
         ro
           .status (200)
@@ -65,16 +66,19 @@ router.route ('/:post_id')
       })
   })
   .post ((ri, ro) => {
+    const { post_id } = ri.params
     ro
       .status (501)
       .json (hello)
   })
   .put ((ri, ro) => {
+    const { post_id } = ri.params
     ro
       .status (501)
       .json (hello)
   })
   .delete ((ri, ro) => {
+    const { post_id } = ri.params
     ro
       .status (501)
       .json (hello)
@@ -86,7 +90,8 @@ router.route ('/:post_id')
 
 router.route ('/:post_id/comments')
   .get ((ri, ro) => {
-    db.getAllCommentsOfPost ()
+    const { post_id } = ri.params
+    db.getAllCommentsOfPost (post_id)
       .then ((comments) => {
         ro
           .status (200)
@@ -99,6 +104,7 @@ router.route ('/:post_id/comments')
       })
   })
   .post ((ri, ro) => {
+    const { post_id } = ri.params
     ro
       .status (501)
       .json (hello)

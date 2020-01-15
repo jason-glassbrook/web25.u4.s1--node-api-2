@@ -65,12 +65,6 @@ router.route ('/:post_id')
           .json (error_500)
       })
   })
-  .post ((ri, ro) => {
-    const { post_id } = ri.params
-    ro
-      .status (501)
-      .json (hello)
-  })
   .put ((ri, ro) => {
     const { post_id } = ri.params
     ro

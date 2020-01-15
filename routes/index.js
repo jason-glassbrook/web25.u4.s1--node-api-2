@@ -10,6 +10,9 @@ const express = require ('express')
 ***************************************/
 
 const router = express.Router ()
+const hello = {
+  message : `hello! i'm ~ (the server).`,
+}
 
 /***************************************
   setup children
@@ -23,10 +26,8 @@ router.use ('/api', require ('./api'))
 
 router.get ('/', (ri, ro) => {
   ro
-    .status (200)
-    .json ({
-      message : `hello! i'm ~ (the server).`,
-    })
+    .status (501)
+    .json (hello)
 })
 
 /**************************************/

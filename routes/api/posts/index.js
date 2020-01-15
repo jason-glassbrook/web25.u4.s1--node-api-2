@@ -11,6 +11,9 @@ const db = require ('../../../data/db')
 ***************************************/
 
 const router = express.Router ()
+const hello = {
+  message : `hello! i'm ~/api/posts.`,
+}
 
 /***************************************
   handle requests
@@ -18,10 +21,9 @@ const router = express.Router ()
 
 router.get ('/', (ri, ro) => {
   ro
-    .status (200)
-    .json ({
-      message : `hello! i'm ~/api/posts.`,
-    })
+    .status (501)
+    .json (hello)
+})
 })
 
 /**************************************/

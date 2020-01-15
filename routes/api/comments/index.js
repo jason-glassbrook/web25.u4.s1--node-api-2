@@ -42,14 +42,22 @@ router.route ('/')
   })
 
 /*******************
-  /:id
+  /:comment_id
 *******************/
 
-router.route ('/:id')
+router.route ('/:comment_id')
   .get ((ri, ro) => {
-    ro
-      .status (501)
-      .json (hello)
+    db.getComment ()
+      .then ((comment) => {
+        ro
+          .status (200)
+          .json (comment)
+      })
+      .catch ((error) => {
+        ro
+          .status (500)
+          .json (error_500)
+      })
   })
   .put ((ri, ro) => {
     ro

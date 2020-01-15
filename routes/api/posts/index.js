@@ -32,19 +32,20 @@ const shapeOf = {
 }
 const tryShapeOf = (shape) => (
   _.flow ([
-    _.tap ((x) => console.log ('- before:', x)),
+    // _.tap ((x) => console.log ('- before:', x)),
     _.pick (shape),
-    _.tap ((x) => console.log ('- after:', x)),
+    // _.tap ((x) => console.log ('- after:', x)),
   ])
 )
 const hasShapeOf = (shape) => (
   _.flow ([
+    // _.tap ((x) => console.log ('- :', x)),
     _.keys,
-    _.tap ((x) => console.log ('- :', x)),
+    // _.tap ((x) => console.log ('- :', x)),
     _.difference (shape),
-    _.tap ((x) => console.log ('- :', x)),
+    // _.tap ((x) => console.log ('- :', x)),
     _.isEmpty,
-    _.tap ((x) => console.log ('- :', x)),
+    // _.tap ((x) => console.log ('- :', x)),
   ])
 )
 

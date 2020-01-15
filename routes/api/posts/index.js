@@ -154,13 +154,12 @@ router.route ('/:post_id')
   .put ((ri, ro) => {
     const { post_id } = ri.params
 
-    let post_exists = false
-
     db.getPost (post_id)
       .then (([ post ]) => {
         console.log (post)
         if (post) {
-          post_exists = true
+          // post_exists = true
+
         }
         else {
           ro
@@ -174,23 +173,16 @@ router.route ('/:post_id')
           .status (500)
           .json (error_500 ())
       })
-
-    if (!post_exists) { return }
-
-    ro
-      .status (501)
-      .json (hello)
   })
   .delete ((ri, ro) => {
     const { post_id } = ri.params
 
-    let post_exists = false
-
     db.getPost (post_id)
       .then (([ post ]) => {
         console.log (post)
         if (post) {
-          post_exists = true
+          // post_exists = true
+
         }
         else {
           ro
@@ -204,12 +196,6 @@ router.route ('/:post_id')
           .status (500)
           .json (error_500 ())
       })
-
-    if (!post_exists) { return }
-
-    ro
-      .status (501)
-      .json (hello)
   })
 
 /*******************
@@ -220,35 +206,31 @@ router.route ('/:post_id/comments')
   .get ((ri, ro) => {
     const { post_id } = ri.params
 
-    let post_exists = false
-
     db.getPost (post_id)
       .then (([ post ]) => {
         console.log (post)
         if (post) {
-          post_exists = true
+          // post_exists = true
+
+          db.getAllCommentsOfPost (post_id)
+            .then ((comments) => {
+              console.log (comments)
+              ro
+                .status (200)
+                .json (comments)
+            })
+            .catch ((error) => {
+              console.log (error)
+              ro
+                .status (500)
+                .json (error_500 ())
+            })
         }
         else {
           ro
             .status (404)
             .json (error_404 ('post', post_id))
         }
-      })
-      .catch ((error) => {
-        console.log (error)
-        ro
-          .status (500)
-          .json (error_500 ())
-      })
-
-    if (!post_exists) { return }
-
-    db.getAllCommentsOfPost (post_id)
-      .then ((comments) => {
-        console.log (comments)
-        ro
-          .status (200)
-          .json (comments)
       })
       .catch ((error) => {
         console.log (error)
@@ -260,13 +242,38 @@ router.route ('/:post_id/comments')
   .post ((ri, ro) => {
     const { post_id } = ri.params
 
-    let post_exists = false
-
     db.getPost (post_id)
       .then (([ post ]) => {
         console.log (post)
         if (post) {
-          post_exists = true
+          // post_exists = true
+
+          const maybeComment = tryShapeOf (shapeOf.comment) ({
+            ...ri.body,
+            post_id,
+          })
+
+          if (hasShapeOf (shapeOf.comment) (maybeComment)) {
+            db.pushCommentOfPost (maybeComment)
+              .then ((comment) => {
+                console.log (comment)
+                ro
+                  .status (201)
+                  .json (comment)
+              })
+              .catch ((error) => {
+                console.log (error)
+                ro
+                  .status (500)
+                  .json (error_500 ())
+              })
+          }
+          else {
+            console.log ('bad request')
+            ro
+              .status (400)
+              .json (error_400 ('POST', 'comment'))
+          }
         }
         else {
           ro
@@ -280,35 +287,6 @@ router.route ('/:post_id/comments')
           .status (500)
           .json (error_500 ())
       })
-
-    if (!post_exists) { return }
-
-    const maybeComment = tryShapeOf (shapeOf.comment) ({
-      ...ri.body,
-      post_id,
-    })
-
-    if (hasShapeOf (shapeOf.comment) (maybeComment)) {
-      db.pushCommentOfPost (maybeComment)
-        .then ((comment) => {
-          console.log (comment)
-          ro
-            .status (201)
-            .json (comment)
-        })
-        .catch ((error) => {
-          console.log (error)
-          ro
-            .status (500)
-            .json (error_500 ())
-        })
-    }
-    else {
-      console.log ('bad request')
-      ro
-        .status (400)
-        .json (error_400 ('POST', 'comment'))
-    }
   })
 
 /**************************************/

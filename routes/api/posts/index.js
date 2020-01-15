@@ -47,14 +47,22 @@ router.route ('/')
   })
 
 /*******************
-  /:id
+  /:post_id
 *******************/
 
-router.route ('/:id')
+router.route ('/:post_id')
   .get ((ri, ro) => {
-    ro
-      .status (501)
-      .json (hello)
+    db.getPost ()
+      .then ((post) => {
+        ro
+          .status (200)
+          .json (post)
+      })
+      .catch ((error) => {
+        ro
+          .status (500)
+          .json (error_500)
+      })
   })
   .post ((ri, ro) => {
     ro
@@ -73,14 +81,22 @@ router.route ('/:id')
   })
 
 /*******************
-  /:id/comments
+  /:post_id/comments
 *******************/
 
-router.route ('/:id/comments')
+router.route ('/:post_id/comments')
   .get ((ri, ro) => {
-    ro
-      .status (501)
-      .json (hello)
+    db.getAllCommentsOfPost ()
+      .then ((comments) => {
+        ro
+          .status (200)
+          .json (comments)
+      })
+      .catch ((error) => {
+        ro
+          .status (500)
+          .json (error_500)
+      })
   })
   .post ((ri, ro) => {
     ro

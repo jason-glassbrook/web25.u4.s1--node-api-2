@@ -2,8 +2,9 @@
   ~/api/posts router
 *******************************************************************************/
 
-/// tools ///
+const _ = require ('lodash/fp')
 const express = require ('express')
+
 const db = require ('../../../data/db')
 
 /***************************************

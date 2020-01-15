@@ -15,9 +15,12 @@ const router = express.Router ()
 const hello = {
   message : `hello! i'm ~/api/comments.`,
 }
-const error_500 = {
-  error : 'something bad happened',
-}
+const error_404 = (thing, id) => ({
+  error : `could not find ${thing} with id ${id}`,
+})
+const error_500 = () => ({
+  error : `something bad happened`,
+})
 
 /***************************************
   handle requests
@@ -38,7 +41,7 @@ router.route ('/')
       .catch ((error) => {
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
 
@@ -58,7 +61,7 @@ router.route ('/:comment_id')
       .catch ((error) => {
         ro
           .status (500)
-          .json (error_500)
+          .json (error_500 ())
       })
   })
   .put ((ri, ro) => {

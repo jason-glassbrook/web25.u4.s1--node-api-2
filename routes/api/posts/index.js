@@ -15,9 +15,12 @@ const router = express.Router ()
 const hello = {
   message : `hello! i'm ~/api/posts.`,
 }
-const error_500 = {
-  error : 'something bad happened',
-}
+const error_404 = (thing, id) => ({
+  error : `could not find ${thing} with id ${id}`,
+})
+const error_500 = () => ({
+  error : `something bad happened`,
+})
 
 const shapeOf = {
   post : ['title', 'contents'],

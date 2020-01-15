@@ -49,6 +49,29 @@ const hasShapeOf = (shape) => (
   ])
 )
 
+// const log = (message) =>
+//   _.tap ((x) => console.log (message, x))
+
+// const logInit = (fun) =>
+//   _.flow ([
+//     log ('- init:'),
+//     fun,
+//   ])
+
+// const logExit = (fun) =>
+//   _.flow ([
+//     fun,
+//     log ('- exit:'),
+//   ])
+
+// const logEnds = (fun) =>
+//   // _.flow ([ logInit, logExit ]) (fun)
+//   _.flow ([
+//     log ('- init:'),
+//     fun,
+//     log ('- exit:'),
+//   ])
+
 /***************************************
   handle requests
 ***************************************/

@@ -174,6 +174,29 @@ router.route ('/:post_id/comments')
   .get ((ri, ro) => {
     const { post_id } = ri.params
 
+    let post_exists = false
+
+    db.getPost (post_id)
+      .then (([ post ]) => {
+        console.log (post)
+        if (post) {
+          post_exists = true
+        }
+        else {
+          ro
+            .status (404)
+            .json (error_404 ('post', post_id))
+        }
+      })
+      .catch ((error) => {
+        console.log (error)
+        ro
+          .status (500)
+          .json (error_500 ())
+      })
+
+    if (!post_exists) { return }
+
     db.getAllCommentsOfPost (post_id)
       .then ((comments) => {
         console.log (comments)
@@ -190,6 +213,29 @@ router.route ('/:post_id/comments')
   })
   .post ((ri, ro) => {
     const { post_id } = ri.params
+
+    let post_exists = false
+
+    db.getPost (post_id)
+      .then (([ post ]) => {
+        console.log (post)
+        if (post) {
+          post_exists = true
+        }
+        else {
+          ro
+            .status (404)
+            .json (error_404 ('post', post_id))
+        }
+      })
+      .catch ((error) => {
+        console.log (error)
+        ro
+          .status (500)
+          .json (error_500 ())
+      })
+
+    if (!post_exists) { return }
 
     const maybeComment = tryShapeOf (shapeOf.comment) ({
       ...ri.body,

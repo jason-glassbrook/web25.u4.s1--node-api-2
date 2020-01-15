@@ -30,7 +30,7 @@ const shapeOf = {
   post : ['title', 'contents'],
   comment : ['post_id', 'text'],
 }
-const tryShapeOf = (shape) => (
+const pickShapeOf = (shape) => (
   _.flow ([
     // _.tap ((x) => console.log ('- before:', x)),
     _.pick (shape),
@@ -97,7 +97,7 @@ router.route ('/')
       })
   })
   .post ((ri, ro) => {
-    const maybePost = tryShapeOf (shapeOf.post) (ri.body)
+    const maybePost = pickShapeOf (shapeOf.post) (ri.body)
 
     if (hasShapeOf (shapeOf.post) (maybePost)) {
       db.pushPost (maybePost)
@@ -159,7 +159,7 @@ router.route ('/:post_id')
         console.log (post)
         if (post) {
           // post_exists = true
-          const maybePost = tryShapeOf (shapeOf.post) (ri.body)
+          const maybePost = pickShapeOf (shapeOf.post) (ri.body)
 
           db.setPost (post_id, maybePost)
             .then (([ post ]) => {
@@ -275,7 +275,7 @@ router.route ('/:post_id/comments')
         if (post) {
           // post_exists = true
 
-          const maybeComment = tryShapeOf (shapeOf.comment) ({
+          const maybeComment = pickShapeOf (shapeOf.comment) ({
             ...ri.body,
             post_id,
           })

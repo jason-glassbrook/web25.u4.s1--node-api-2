@@ -30,6 +30,9 @@ const shapeOf = {
   post : ['title', 'contents'],
   comment : ['post_id', 'text'],
 }
+const hasShapeOf = (object, shape) => (
+  _.difference (_.keys (object)) (shape) == []
+)
 
 /***************************************
   handle requests

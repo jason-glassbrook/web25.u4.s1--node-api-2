@@ -197,6 +197,19 @@ router.route ('/:post_id')
         if (post) {
           // post_exists = true
 
+          db.pullPost (post_id)
+            .then (([ post ]) => {
+              console.log (post)
+              ro
+                .status (200)
+                .json (post)
+            })
+            .catch ((error) => {
+              console.log (error)
+              ro
+                .status (500)
+                .json (error_500 ())
+            })
         }
         else {
           ro

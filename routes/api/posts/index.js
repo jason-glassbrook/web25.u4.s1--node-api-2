@@ -47,9 +47,22 @@ router.route ('/')
       })
   })
   .post ((ri, ro) => {
-    ro
-      .status (501)
-      .json (hello)
+    const maybePost = _.flow ([
+      _.tap ((x) => console.log ('before:', x)),
+      _.pick (shapeOf.post),
+      _.tap ((x) => console.log ('after:', x)),
+    ]) (ri.body)
+    db.pushPost (maybePost)
+      .then ((post) => {
+        ro
+          .status (201)
+          .json (post)
+      })
+      .catch ((error) => {
+        ro
+          .status (500)
+          .json (error_500)
+      })
   })
 
 /*******************
@@ -105,9 +118,23 @@ router.route ('/:post_id/comments')
   })
   .post ((ri, ro) => {
     const { post_id } = ri.params
-    ro
-      .status (501)
-      .json (hello)
+    const maybeComment = _.flow ([
+      _.tap ((x) => console.log ('before:', x)),
+      _.pick (shapeOf.comment),
+      _.tap ((x) => console.log ('after:', x)),
+    ]) ({ ...ri.body, post_id })
+
+    db.pushCommentOfPost (maybeComment)
+      .then ((comment) => {
+        ro
+          .status (201)
+          .json (comment)
+      })
+      .catch ((error) => {
+        ro
+          .status (500)
+          .json (error_500)
+      })
   })
 
 /**************************************/

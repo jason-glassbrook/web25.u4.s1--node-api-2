@@ -28,9 +28,17 @@ const error_500 = {
 
 router.route ('/')
   .get ((ri, ro) => {
-    ro
-      .status (501)
-      .json (hello)
+    db.getAllPosts ()
+      .then ((posts) => {
+        ro
+          .status (200)
+          .json (posts)
+      })
+      .catch ((error) => {
+        ro
+          .status (500)
+          .json (error_500)
+      })
   })
   .post ((ri, ro) => {
     ro

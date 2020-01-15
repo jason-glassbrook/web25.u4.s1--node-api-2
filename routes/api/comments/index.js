@@ -56,11 +56,17 @@ router.route ('/:comment_id')
     const { comment_id } = ri.params
 
     db.getComment (comment_id)
-      .then ((comment) => {
-        console.log (comment)
-        ro
-          .status (200)
-          .json (comment)
+      .then (([ comment ]) => {
+        if (comment) {
+          ro
+            .status (200)
+            .json (comment)
+        }
+        else {
+          ro
+            .status (404)
+            .json (error_404 ('comment', comment_id))
+        }
       })
       .catch ((error) => {
         console.log (error)

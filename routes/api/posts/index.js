@@ -23,61 +23,59 @@ const hello = {
   /
 *******************/
 
-router.get ('/', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.post ('/', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .post ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /*******************
   /:id
 *******************/
 
-router.get ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.post ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.put ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.delete ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/:id')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .post ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .put ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .delete ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /*******************
   /:id/comments
 *******************/
 
-router.get ('/:id/comments', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.post ('/:id/comments', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/:id/comments')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .post ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /**************************************/
 

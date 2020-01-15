@@ -24,11 +24,12 @@ router.use ('/api', require ('./api'))
   handle requests
 ***************************************/
 
-router.get ('/', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /**************************************/
 

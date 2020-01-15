@@ -23,33 +23,33 @@ const hello = {
   /
 *******************/
 
-router.get ('/', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /*******************
   /:id
 *******************/
 
-router.get ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.put ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
-
-router.delete ('/:id', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/:id')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .put ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
+  .delete ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /**************************************/
 

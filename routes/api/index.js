@@ -25,11 +25,12 @@ router.use ('/comments', require ('./comments'))
   handle requests
 ***************************************/
 
-router.get ('/', (ri, ro) => {
-  ro
-    .status (501)
-    .json (hello)
-})
+router.route ('/')
+  .get ((ri, ro) => {
+    ro
+      .status (501)
+      .json (hello)
+  })
 
 /**************************************/
 

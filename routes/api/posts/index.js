@@ -19,6 +19,11 @@ const error_500 = {
   error : 'something bad happened',
 }
 
+const shapeOf = {
+  post : ['title', 'contents'],
+  comment : ['post_id', 'text'],
+}
+
 /***************************************
   handle requests
 ***************************************/

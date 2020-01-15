@@ -25,7 +25,7 @@ router.get ('/', (ri, ro) => {
   ro
     .status (200)
     .json ({
-      message : `hello! i'm the server.`,
+      message : `hello! i'm ~ (the server).`,
     })
 })
 

@@ -65,19 +65,27 @@ router.route ('/')
       _.tap ((x) => console.log ('after:', x)),
     ]) (ri.body)
 
-    db.pushPost (maybePost)
-      .then ((post) => {
-        console.log (post)
-        ro
-          .status (201)
-          .json (post)
-      })
-      .catch ((error) => {
-        console.log (error)
-        ro
-          .status (500)
-          .json (error_500 ())
-      })
+    if (hasShapeOf (maybePost, shapeOf.post)) {
+      db.pushPost (maybePost)
+        .then ((post) => {
+          console.log (post)
+          ro
+            .status (201)
+            .json (post)
+        })
+        .catch ((error) => {
+          console.log (error)
+          ro
+            .status (500)
+            .json (error_500 ())
+        })
+    }
+    else {
+      console.log ('bad request')
+      ro
+        .status (400)
+        .json (error_400 ('POST', 'post'))
+    }
   })
 
 /*******************
@@ -155,19 +163,27 @@ router.route ('/:post_id/comments')
       _.tap ((x) => console.log ('after:', x)),
     ]) ({ ...ri.body, post_id })
 
-    db.pushCommentOfPost (maybeComment)
-      .then ((comment) => {
-        console.log (comment)
-        ro
-          .status (201)
-          .json (comment)
-      })
-      .catch ((error) => {
-        console.log (error)
-        ro
-          .status (500)
-          .json (error_500 ())
-      })
+    if (hasShapeOf (maybeComment, shapeOf.comment)) {
+      db.pushCommentOfPost (maybeComment)
+        .then ((comment) => {
+          console.log (comment)
+          ro
+            .status (201)
+            .json (comment)
+        })
+        .catch ((error) => {
+          console.log (error)
+          ro
+            .status (500)
+            .json (error_500 ())
+        })
+    }
+    else {
+      console.log ('bad request')
+      ro
+        .status (400)
+        .json (error_400 ('POST', 'comment'))
+    }
   })
 
 /**************************************/

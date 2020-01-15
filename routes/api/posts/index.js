@@ -154,12 +154,58 @@ router.route ('/:post_id')
   .put ((ri, ro) => {
     const { post_id } = ri.params
 
+    let post_exists = false
+
+    db.getPost (post_id)
+      .then (([ post ]) => {
+        console.log (post)
+        if (post) {
+          post_exists = true
+        }
+        else {
+          ro
+            .status (404)
+            .json (error_404 ('post', post_id))
+        }
+      })
+      .catch ((error) => {
+        console.log (error)
+        ro
+          .status (500)
+          .json (error_500 ())
+      })
+
+    if (!post_exists) { return }
+
     ro
       .status (501)
       .json (hello)
   })
   .delete ((ri, ro) => {
     const { post_id } = ri.params
+
+    let post_exists = false
+
+    db.getPost (post_id)
+      .then (([ post ]) => {
+        console.log (post)
+        if (post) {
+          post_exists = true
+        }
+        else {
+          ro
+            .status (404)
+            .json (error_404 ('post', post_id))
+        }
+      })
+      .catch ((error) => {
+        console.log (error)
+        ro
+          .status (500)
+          .json (error_500 ())
+      })
+
+    if (!post_exists) { return }
 
     ro
       .status (501)

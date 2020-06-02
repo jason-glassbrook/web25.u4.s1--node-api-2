@@ -1,60 +1,103 @@
-const knex = require('knex');
-const knexConfig = require('../knexfile.js');
-const db = knex(knexConfig.development);
+const knex = require ('knex')
+const knexConfig = require ('../knexfile.js')
+const db = knex (knexConfig.development)
 
 module.exports = {
-  find,
-  findById,
-  insert,
-  update,
-  remove,
-  findPostComments,
-  findCommentById,
-  insertComment,
-};
-
-function find() {
-  return db('posts');
+  getAllPosts,
+  getPost,
+  pushPost,
+  setPost,
+  pullPost,
+  getAllComments,
+  getComment,
+  getAllCommentsOfPost,
+  pushCommentOfPost,
 }
 
-function findById(id) {
-  return db('posts').where({ id: Number(id) });
+/***************************************
+  posts
+***************************************/
+
+async function getAllPosts () {
+  const re = await (
+    db ('posts')
+  )
+  return re
 }
 
-function insert(post) {
-  return db('posts')
-    .insert(post, 'id')
-    .then(ids => ({ id: ids[0] }));
+async function pushPost (post) {
+  const re = await (
+    db ('posts')
+      .insert (post, 'id')
+      .then (ids => ({ id: ids[0] }))
+  )
+  return re
 }
 
-function update(id, post) {
-  return db('posts')
-    .where('id', Number(id))
-    .update(post);
+async function getPost (id) {
+  const re = await (
+    db ('posts')
+      .where ({ id: Number (id) })
+  )
+  return re
 }
 
-function remove(id) {
-  return db('posts')
-    .where('id', Number(id))
-    .del();
+async function setPost (id, post) {
+  const status = await (
+    db ('posts')
+      .where ('id', Number (id))
+      .update (post)
+  )
+  const re = getPost (id)
+  return re
 }
 
-function findPostComments(postId) {
-  return db('comments')
-    .join('posts', 'posts.id', 'post_id')
-    .select('comments.*', 'title as post')
-    .where('post_id', postId);
+async function pullPost (id) {
+  const re = getPost (id)
+  const status = await (
+    db ('posts')
+      .where ('id', Number (id))
+      .delete ()
+  )
+  return re
 }
 
-function findCommentById(id) {
-  return db('comments')
-    .join('posts', 'posts.id', 'post_id')
-    .select('comments.*', 'title as post')
-    .where('comments.id', id);
+/***************************************
+  comments
+***************************************/
+
+async function getAllComments () {
+  const re = await (
+    db ('comments')
+  )
+  return re
 }
 
-function insertComment(comment) {
-  return db('comments')
-    .insert(comment)
-    .then(ids => ({ id: ids[0] }));
+async function getComment (id) {
+  const re = await (
+    db ('comments')
+      .join ('posts', 'posts.id', 'post_id')
+      .select ('comments.*', 'title as post')
+      .where ('comments.id', id)
+  )
+  return re
+}
+
+async function getAllCommentsOfPost (postId) {
+  const re = await (
+    db ('comments')
+      .join ('posts', 'posts.id', 'post_id')
+      .select ('comments.*', 'title as post')
+      .where ('post_id', postId)
+  )
+  return re
+}
+
+async function pushCommentOfPost (comment) {
+  const re = await (
+    db ('comments')
+      .insert (comment)
+      .then (ids => ({ id: ids[0] }))
+  )
+  return re
 }
